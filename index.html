@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOPIB BER — Shaxsiy xotira</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a class="brand" href="#">
+        <span class="brand-mark">T+</span>
+        <span>
+            <strong>TOPIB BER</strong>
+            <small>SHAXSIY XOTIRA</small>
+        </span>
+    </a>
+
+    <div class="save-status">
+        <i></i> Qurilmada saqlanadi
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div>
+            <p class="eyebrow">SIZNING SHAXSIY XOTIRANGIZ</p>
+            <h1>Hech narsani <span>yo‘qotmang.</span></h1>
+            <p class="hero-text">
+                Buyumlaringiz qayerdaligini, kimga berganingizni
+                va muhim sanalarni bir joyda saqlang.
+            </p>
+        </div>
+
+        <div class="hero-icon">T<span>+</span></div>
+    </section>
+
+    <section class="search-panel">
+        <div class="search-wrap">
+            <span>⌕</span>
+            <input id="searchInput" type="search"
+                   placeholder="Nimani qidiryapsiz?">
+            <button id="voiceBtn" title="Ovoz bilan qidirish">🎙</button>
+        </div>
+        <p id="searchHint">Buyum nomi, joyi yoki izohi bo‘yicha qidiring.</p>
+    </section>
+
+    <section class="stats">
+        <article class="stat-card">
+            <span>▣</span>
+            <div>
+                <strong id="totalCount">0</strong>
+                <small>Jami buyumlar</small>
+            </div>
+        </article>
+
+        <article class="stat-card">
+            <span>⌖</span>
+            <div>
+                <strong id="lentCount">0</strong>
+                <small>Berilgan buyumlar</small>
+            </div>
+        </article>
+
+        <article class="stat-card">
+            <span>◷</span>
+            <div>
+                <strong id="reminderCount">0</strong>
+                <small>Eslatmalar</small>
+            </div>
+        </article>
+    </section>
+
+    <section class="section-heading">
+        <div>
+            <p class="eyebrow">SIZNING KATALOGINGIZ</p>
+            <h2>Saqlangan buyumlar</h2>
+        </div>
+
+        <button class="primary-button" id="addItemBtn">
+            ＋ Buyum qo‘shish
+        </button>
+    </section>
+
+    <nav class="filters" id="filters">
+        <button class="filter active" data-filter="all">Barchasi</button>
+        <button class="filter" data-filter="joy">Menda</button>
+        <button class="filter" data-filter="lent">Berilganlar</button>
+        <button class="filter" data-filter="document">Hujjatlar</button>
+    </nav>
+
+    <section id="itemsGrid" class="items-grid">
+    </section>
+
+    <section class="bottom-grid">
+
+        <article class="panel">
+            <p class="eyebrow">VAQTIDA ESLATAMIZ</p>
+            <h2>Yaqin eslatmalar</h2>
+            <div id="reminderList">
+                <p class="muted">Hozircha eslatmalar yo‘q.</p>
+            </div>
+        </article>
+
+        <article class="panel">
+            <p class="eyebrow">TEZKOR AMAL</p>
+            <h2>Ovoz bilan saqlang</h2>
+            <p class="muted">
+                Masalan: Zaxira kalitni koridordagi tortmaga qo‘ydim.
+            </p>
+            <button class="secondary-button wide" id="voiceAddBtn">
+                🎙 Ovozli qayd
+            </button>
+            <small id="voiceStatus">
+                Ovozli funksiya brauzer qo‘llasa ishlaydi.
+            </small>
+        </article>
+
+    </section>
+
+    <footer>
+        <span>TOPIB BER ◆ Shaxsiy buyumlar xotirasi</span>
+        <span>AKRAMJANOVA JADRA MARATOVNA</span>
+    </footer>
+
+</main>
+
+<!-- BUYUM QO‘SHISH OYNASI -->
+<div class="modal-backdrop" id="itemModal">
+    <section class="modal">
+
+        <div class="modal-header">
+            <div>
+                <p class="eyebrow">XOTIRAGA YANGI MA'LUMOT</p>
+                <h2 id="modalTitle">Buyum qo‘shish</h2>
+            </div>
+            <button class="close-button" data-close="itemModal">×</button>
+        </div>
+
+        <form id="itemForm">
+
+            <input type="hidden" id="itemId">
+
+            <label>
+                Buyum nomi *
+                <input id="itemName" required
+                       placeholder="Masalan: Uy kaliti">
+            </label>
+
+            <div class="form-row">
+                <label>
+                    Kategoriya
+                    <select id="itemCategory">
+                        <option>Boshqa</option>
+                        <option>Hujjat</option>
+                        <option>Elektronika</option>
+                        <option>Kalit</option>
+                        <option>Aksessuar</option>
+                        <option>Uy-ro‘zg‘or</option>
+                    </select>
+                </label>
+
+                <label>
+                    Qayerda turibdi?
+                    <input id="itemPlace"
+                           placeholder="Masalan: Kirishdagi tortma">
+                </label>
+            </div>
+
+            <label>
+                Qo‘shimcha izoh
+                <textarea id="itemNote" rows="2"
+                          placeholder="Buyum haqida ma'lumot..."></textarea>
+            </label>
+
+            <label class="upload-label">
+                Buyum rasmi
+                <input id="itemPhoto" type="file" accept="image/*">
+                <span class="upload-box" id="photoPreview">
+                    ＋ Rasm tanlash
+                </span>
+            </label>
+
+            <div class="form-row">
+                <label>
+                    Holati
+                    <select id="itemStatus">
+                        <option value="Menda">Menda</option>
+                        <option value="Berdim">Boshqa kishiga berdim</option>
+                    </select>
+                </label>
+
+                <label id="borrowerWrap" class="hidden">
+                    Kimga berdingiz?
+                    <input id="itemBorrower" placeholder="Ismi">
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label id="dueWrap" class="hidden">
+                    Qaytarish sanasi
+                    <input id="itemDue" type="date">
+                </label>
+
+                <label>
+                    Eslatma sanasi
+                    <input id="itemReminder" type="date">
+                </label>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="secondary-button"
+                        data-close="itemModal">Bekor qilish</button>
+
+                <button type="submit" class="primary-button">
+                    Saqlash ↗
+                </button>
+            </div>
+
+        </form>
+    </section>
+</div>
+
+<!-- BUYUM TAFSILOTLARI -->
+<div class="modal-backdrop" id="detailModal">
+    <section class="modal">
+        <div class="modal-header">
+            <div>
+                <p class="eyebrow">BUYUM MA'LUMOTI</p>
+                <h2 id="detailTitle">Buyum</h2>
+            </div>
+            <button class="close-button" data-close="detailModal">×</button>
+        </div>
+
+        <div id="detailContent"></div>
+    </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
